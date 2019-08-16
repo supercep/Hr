@@ -1,14 +1,11 @@
-package ru.unic.rest;
+package ru.unic.hr.rest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.unic.utils.HttpRequest;
-
-import java.util.List;
+import ru.unic.hr.utils.*;
 
 /**
  * Created by BritikovMI on 15.08.2019.

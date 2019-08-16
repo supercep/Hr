@@ -1,4 +1,4 @@
-package ru.unic.utils;
+package ru.unic.hr.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

@@ -5,6 +5,3 @@ target/
 .classpath
 .project
 .settings/
-docs/tmp/
-docs/Hr/
-docs/deploying-spring-boot-apps/

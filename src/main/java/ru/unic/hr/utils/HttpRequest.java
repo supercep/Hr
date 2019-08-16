@@ -1,4 +1,4 @@
-package ru.unic.utils;
+package ru.unic.hr.utils;
 
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
