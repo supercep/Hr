@@ -1,11 +1,11 @@
 package ru.unic.hr.service.parser;
 
-import ru.unic.hr.model.Vacancy;
+import ru.unic.hr.model.Model;
 
-public class VacancyParser extends AbstractParser<Vacancy> {
+public class VacancyParser extends AbstractParser<Model> {
 
-    public Vacancy parse(String content) {
-        return getGson().fromJson(content, Vacancy.class);
+    public Model parse(String content) {
+        return getGson().fromJson(content, Model.class);
     }
 
 }
