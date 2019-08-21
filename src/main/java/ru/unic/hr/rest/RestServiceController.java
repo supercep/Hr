@@ -1,10 +1,11 @@
 package ru.unic.hr.rest;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.unic.hr.model.Model;
+import ru.unic.hr.service.parser.VacancyParser;
 import ru.unic.hr.utils.*;
 
 /**
@@ -14,13 +15,16 @@ import ru.unic.hr.utils.*;
 public class RestServiceController {
 
     @GetMapping("/search/{params}")
-    public String search(@PathVariable("params") String params)  {
-        return HttpRequest.doGet("https://api.hh.ru/vacancies?text=" + params).toString();
+    public Model search(@PathVariable("params") String params)  {
+        VacancyParser parser = new VacancyParser();
+        Model model = parser.parse(HttpRequest.doGet("https://api.hh.ru/vacancies?text=" + params).toString());
+
+        return model;
     }
 
     @RequestMapping("/hello")
     public String factSchedullerController(Model model) {
-        model.addAttribute("message", "Каждую секунду");
+//        model.addAttribute("message", "Каждую секунду");
         /*Html page initialization*/
         return "hello";
     }
