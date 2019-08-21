@@ -4,12 +4,25 @@
 <body>
 
 
-<div class="container">
-  <h1>Database Output</h1>
-  <ul th:each="record : ${records}">
-    <li th:text="${record}"/>
-  </ul>
-</div>
+<table width="100%">
+  <thead>
+  <tr>
+    <th> Id </th>
+    <th> Name </th>
+    <th> Salary </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:if="${items.empty}">
+    <td colspan="2"> No vacancy Available </td>
+  </tr>
+  <tr th:each="item : ${items}">
+    <td><span th:text="${item.id}"> Id </span></td>
+    <td><span th:text="${item.name}"> name </span></td>
+    <td><span th:text="${item.salary}"> salary </span></td>
+  </tr>
+  </tbody>
+</table>
 
 </body>
 </html>
