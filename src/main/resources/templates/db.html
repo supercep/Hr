@@ -3,26 +3,27 @@
 
 <body>
 
-
-<table width="100%">
-  <thead>
-  <tr>
-    <th> Id </th>
-    <th> Name </th>
-    <th> Salary </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:if="${items.empty}">
-    <td colspan="2"> No vacancy Available </td>
-  </tr>
-  <tr th:each="item : ${items}">
-    <td><span th:text="${item.id}"> Id </span></td>
-    <td><span th:text="${item.name}"> name </span></td>
-    <td><span th:text="${item.salary}"> salary </span></td>
-  </tr>
-  </tbody>
-</table>
+<div style="margin-top: 20px" class="container">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th colspan="2"> Id</th>
+            <th colspan="2"> Name</th>
+            <th colspan="2"> Salary</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${items.empty}">
+            <td colspan="6"> No vacancy Available</td>
+        </tr>
+        <tr th:each="item : ${items}">
+            <td colspan="2"><span th:text="${item.id}"> Id </span></td>
+            <td colspan="2"><span th:text="${item.name}"> name </span></td>
+            <td colspan="2"><span th:text="${item.salary}"> salary </span></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
