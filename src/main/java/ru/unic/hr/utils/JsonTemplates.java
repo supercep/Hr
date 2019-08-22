@@ -17,7 +17,7 @@ public class JsonTemplates {
         projectCreationData.addProperty("name", name); //Project name
         projectCreationData.addProperty("projectTypeKey", projectTypeKey); //e.g. -- "software" or "business"
         projectCreationData.addProperty("description", "Example Project description");
-//        projectCreationData.addProperty("url", projectUrl);
+//        projectCreationData.addProperty("builder", projectUrl);
         projectCreationData.addProperty("assigneeType", "PROJECT_LEAD");
         projectCreationData.addProperty("lead", userName);
 

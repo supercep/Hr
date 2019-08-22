@@ -15,7 +15,7 @@ public class Employer {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("url")
+    @SerializedName("builder")
     @Expose
     private String url;
     @SerializedName("alternate_url")
@@ -89,7 +89,7 @@ public class Employer {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).append("url", url).append("alternateUrl", alternateUrl).append("logoUrls", logoUrls).append("vacanciesUrl", vacanciesUrl).append("trusted", trusted).toString();
+        return new ToStringBuilder(this).append("id", id).append("name", name).append("builder", url).append("alternateUrl", alternateUrl).append("logoUrls", logoUrls).append("vacanciesUrl", vacanciesUrl).append("trusted", trusted).toString();
     }
 
     @Override

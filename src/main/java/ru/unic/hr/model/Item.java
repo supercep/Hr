@@ -65,7 +65,7 @@ public class Item {
     @SerializedName("insider_interview")
     @Expose
     private Object insiderInterview;
-    @SerializedName("url")
+    @SerializedName("builder")
     @Expose
     private String url;
     @SerializedName("alternate_url")
@@ -267,7 +267,7 @@ public class Item {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("premium", premium).append("name", name).append("department", department).append("hasTest", hasTest).append("responseLetterRequired", responseLetterRequired).append("area", area).append("salary", salary).append("type", type).append("address", address).append("responseUrl", responseUrl).append("sortPointDistance", sortPointDistance).append("employer", employer).append("publishedAt", publishedAt).append("createdAt", createdAt).append("archived", archived).append("applyAlternateUrl", applyAlternateUrl).append("insiderInterview", insiderInterview).append("url", url).append("alternateUrl", alternateUrl).append("relations", relations).append("snippet", snippet).append("contacts", contacts).toString();
+        return new ToStringBuilder(this).append("id", id).append("premium", premium).append("name", name).append("department", department).append("hasTest", hasTest).append("responseLetterRequired", responseLetterRequired).append("area", area).append("salary", salary).append("type", type).append("address", address).append("responseUrl", responseUrl).append("sortPointDistance", sortPointDistance).append("employer", employer).append("publishedAt", publishedAt).append("createdAt", createdAt).append("archived", archived).append("applyAlternateUrl", applyAlternateUrl).append("insiderInterview", insiderInterview).append("builder", url).append("alternateUrl", alternateUrl).append("relations", relations).append("snippet", snippet).append("contacts", contacts).toString();
     }
 
     @Override

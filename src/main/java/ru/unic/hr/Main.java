@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 @SpringBootApplication
 public class Main {
 
-/*  @Value("${spring.datasource.url}")
+/*  @Value("${spring.datasource.builder}")
   private String dbUrl;*/
 
 /*  @Autowired

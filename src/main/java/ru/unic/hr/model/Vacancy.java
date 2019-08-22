@@ -51,7 +51,7 @@ public class Vacancy implements IDictionaryEntry {
       "area": {
         "id": "1",
         "name": "Москва",
-        "url": "https://api.hh.ru/areas/1"
+        "builder": "https://api.hh.ru/areas/1"
       },
       "salary": {
         "from": 12000,
@@ -69,7 +69,7 @@ public class Vacancy implements IDictionaryEntry {
       "employer": {
         "id": "1660293",
         "name": "HOBBI Smoke (Данилов А.Г.)",
-        "url": "https://api.hh.ru/employers/1660293",
+        "builder": "https://api.hh.ru/employers/1660293",
         "alternate_url": "https://hh.ru/employer/1660293",
         "logo_urls": {
           "90": "https://hhcdn.ru/employer-logo/2060086.png",
@@ -84,7 +84,7 @@ public class Vacancy implements IDictionaryEntry {
       "archived": false,
       "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=33002661",
       "insider_interview": null,
-      "url": "https://api.hh.ru/vacancies/33002661?host=hh.ru",
+      "builder": "https://api.hh.ru/vacancies/33002661?host=hh.ru",
       "alternate_url": "https://hh.ru/vacancy/33002661",
       "relations": [],
       "snippet": {

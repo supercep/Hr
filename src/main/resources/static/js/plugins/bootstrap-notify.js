@@ -65,7 +65,7 @@
     onClosed: null,
     onClick: null,
     icon_type: 'class',
-    template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss"><i class="tim-icons icon-simple-remove"></i></button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="url"></a></div>'
+    template: '<div data-notify="container" class="col-xs-11 col-sm-4 alert alert-{0}" role="alert"><button type="button" aria-hidden="true" class="close" data-notify="dismiss"><i class="tim-icons icon-simple-remove"></i></button><span data-notify="icon"></span> <span data-notify="title">{1}</span> <span data-notify="message">{2}</span><div class="progress" data-notify="progressbar"><div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div></div><a href="{3}" target="{4}" data-notify="builder"></a></div>'
   };
 
   String.format = function() {
@@ -110,7 +110,7 @@
         message: typeof content === 'object' ? content.message : content,
         title: content.title ? content.title : '',
         icon: content.icon ? content.icon : '',
-        url: content.url ? content.url : '#',
+        url: ru.unic.hr.service.builder ? ru.unic.hr.service.builder : '#',
         target: content.target ? content.target : '-'
       }
     };
@@ -147,7 +147,7 @@
       if (this.settings.content.icon) {
         this.setIcon();
       }
-      if (this.settings.content.url != "#") {
+      if (ru.unic.hr.service.builder != "#") {
         this.styleURL();
       }
       this.styleDismiss();
@@ -188,11 +188,11 @@
                 this.$ele.data('notify-delay', newDelay);
                 this.$ele.find('[data-notify="progressbar"] > div').attr('aria-valuenow', commands[cmd]).css('width', commands[cmd] + '%');
                 break;
-              case "url":
-                this.$ele.find('[data-notify="url"]').attr('href', commands[cmd]);
+              case "builder":
+                this.$ele.find('[data-notify="builder"]').attr('href', commands[cmd]);
                 break;
               case "target":
-                this.$ele.find('[data-notify="url"]').attr('target', commands[cmd]);
+                this.$ele.find('[data-notify="builder"]').attr('target', commands[cmd]);
                 break;
               default:
                 this.$ele.find('[data-notify="' + cmd + '"]').html(commands[cmd]);
@@ -209,7 +209,7 @@
     },
     buildNotify: function() {
       var content = this.settings.content;
-      this.$ele = $(String.format(this.settings.template, this.settings.type, content.title, content.message, content.url, content.target));
+      this.$ele = $(String.format(this.settings.template, this.settings.type, content.title, content.message, ru.unic.hr.service.builder, content.target));
       this.$ele.attr('data-notify-position', this.settings.placement.from + '-' + this.settings.placement.align);
       if (!this.settings.allow_dismiss) {
         this.$ele.find('[data-notify="dismiss"]').css('display', 'none');
@@ -241,8 +241,8 @@
       });
     },
     styleURL: function() {
-      this.$ele.find('[data-notify="url"]').css({
-        backgroundImage: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)',
+      this.$ele.find('[data-notify="builder"]').css({
+        backgroundImage: 'builder(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)',
         height: '100%',
         left: 0,
         position: 'absolute',

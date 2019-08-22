@@ -15,7 +15,7 @@ public class Area {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("url")
+    @SerializedName("builder")
     @Expose
     private String url;
 
@@ -45,7 +45,7 @@ public class Area {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("id", id).append("name", name).append("url", url).toString();
+        return new ToStringBuilder(this).append("id", id).append("name", name).append("builder", url).toString();
     }
 
     @Override
