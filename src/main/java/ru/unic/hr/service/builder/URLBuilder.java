@@ -1,5 +1,6 @@
 package ru.unic.hr.service.builder;
 
+import org.springframework.web.util.UriBuilder;
 import ru.unic.hr.service.loader.PropertiesLoader;
 
 /**
@@ -11,11 +12,18 @@ public class URLBuilder {
     public static String urlBuilder() {
         StringBuilder sb = new StringBuilder();
 
+
         return null;
     }
 
-    public static String withText(){
-        return properties.getHhPropertyText() + "=";
+    public String withText(){
+        return this + properties.getHhPropertyText() + "=";
     }
 
+
+    public static void main(String[] args) {
+        URLBuilder ub = new URLBuilder();
+        System.out.println(ub.withText());
+
+    }
 }
