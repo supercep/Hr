@@ -12,6 +12,7 @@ public class URLBuilder {
         StringBuilder params = new StringBuilder();
         String concatParam;
         String attribute;
+        String perPage = "100";
 
         if (text != null && !text.isEmpty()) {
             concatParam = "text";
@@ -30,6 +31,12 @@ public class URLBuilder {
         if (salaryFrom != null && !salaryFrom.isEmpty()) {
             concatParam = "salary";
             attribute = salaryFrom;
+            params = urlConcat(concatParam, params, attribute);
+        }
+
+        if (salaryFrom != null && !salaryFrom.isEmpty()) {
+            concatParam = "per_page";
+            attribute = perPage;
             params = urlConcat(concatParam, params, attribute);
         }
 

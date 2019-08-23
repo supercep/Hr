@@ -31,6 +31,12 @@ public class CalculateVacancy {
             vacancyModel = parser.parse(content);
             items = vacancyModel.getItems();
         }
+
+        List<Integer> analysisData = DataAnalysis.takeDataForAnalysis(items);
+
+        Integer avgSalary = DataAnalysis.analysisAvgSalary(analysisData);
+
+        model.addAttribute("avgSalary", avgSalary);
         model.addAttribute("items", items);
         return "db";
     }
