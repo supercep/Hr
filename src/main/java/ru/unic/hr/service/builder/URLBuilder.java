@@ -1,29 +1,50 @@
 package ru.unic.hr.service.builder;
 
-import org.springframework.web.util.UriBuilder;
 import ru.unic.hr.service.loader.PropertiesLoader;
 
 /**
  * Created by BritikovMI on 22.08.2019.
  */
 public class URLBuilder {
-    //TODO BUILDER with
     static PropertiesLoader properties = new PropertiesLoader();
-    public static String urlBuilder() {
-        StringBuilder sb = new StringBuilder();
+
+    public String urlBuilder(String text, String area, String salaryFrom) {
+        StringBuilder params = new StringBuilder();
+        String concatParam;
+        String attribute;
+
+        if (text != null && !text.isEmpty()) {
+            concatParam = "text";
+            attribute = text;
+            params = urlConcat(concatParam, params, attribute);
+
+        }
+
+        if (area != null && !area.isEmpty()) {
+            concatParam = "area";
+            attribute = area;
+            params = urlConcat(concatParam, params, attribute);
+
+        }
+
+        if (salaryFrom != null && !salaryFrom.isEmpty()) {
+            concatParam = "salary";
+            attribute = salaryFrom;
+            params = urlConcat(concatParam, params, attribute);
+        }
 
 
-        return null;
+        return properties.getHhUrl()
+                + properties.getHhVacancy()
+                + ((!params.toString().isEmpty() && params != null) ? "?" + params : "");
     }
 
-    public String withText(){
-        return this + properties.getHhPropertyText() + "=";
-    }
-
-
-    public static void main(String[] args) {
-        URLBuilder ub = new URLBuilder();
-        System.out.println(ub.withText());
-
+    private StringBuilder urlConcat(String concatParam, StringBuilder params, String attribute) {
+        if (params != null && !params.toString().isEmpty()) {
+            params.append("&" + concatParam + "=" + attribute);
+        } else {
+            params.append(concatParam + "=" + attribute);
+        }
+        return params;
     }
 }
