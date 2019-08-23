@@ -272,6 +272,13 @@
                 <div class="card-body ">
                     <div class="table-full-width table-responsive">
                         <table class="table">
+                            <thead class=" text-primary">
+                            <tr>
+                                <th colspan="2">Id</th>
+                                <th colspan="2">Name</th>
+                                <th colspan="2">Ссылка</th>
+                            </tr>
+                            </thead>
                             <tbody>
                             <tr th:if="${items.empty}">
                                 <td colspan="6"> No vacancy Available</td>
@@ -279,7 +286,7 @@
                             <tr th:each="item : ${items}">
                                 <td colspan="2"><span th:text="${item.id}"> Id </span></td>
                                 <td colspan="2"><span th:text="${item.name}"> Name </span></td>
-                                <td colspan="2"><span th:text="${item.premium}"> Premium </span></td>
+                                <td colspan="2"><a target="_blank" th:href=${item.alternateUrl}>Ссылка</a></td>
                             </tr>
                             </tbody>
                         </table>
