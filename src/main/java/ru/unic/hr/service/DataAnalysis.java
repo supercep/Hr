@@ -17,7 +17,16 @@ public class DataAnalysis {
         data.stream()
                 .filter(sal -> sal.getSalary() != null && sal.getSalary().getFrom() != null)
                 .forEach(salary -> {
-                    startSalary.add(salary.getSalary().getFrom());
+                    Salary sal = salary.getSalary();
+                    Integer from = sal.getFrom();
+                    Integer to;
+                    Integer finallySum;
+                    if (sal.getTo() != null && sal.getTo() != null) {
+                        to = sal.getTo();
+                        finallySum = (from + to) / 2;
+                    } else
+                        finallySum = from;
+                    startSalary.add(finallySum);
                 });
         return startSalary;
     }
@@ -31,23 +40,12 @@ public class DataAnalysis {
         return (sizeOfSalaryList != 0) ? salarySum / sizeOfSalaryList : 0;
     }
 
-    public static void main(String[] args) {
-        String text = "java";
-        String area = null;
-        String salaryFrom = "";
-        String content = VacancyLoader.load(text, area, salaryFrom);
-        VacancyParser parser = new VacancyParser();
-        ru.unic.hr.model.Model vacancyModel = null;
-        List<Item> items = new ArrayList<>();
+    public static Integer getTop20(List<Integer> data) {
+        Integer sizeOfSalaryList = data.size();
+        Integer salarySum = null;
 
-        if (content != null && !content.isEmpty()) {
-            vacancyModel = parser.parse(content);
-            items = vacancyModel.getItems();
-        }
+        salarySum = data.stream().mapToInt(Integer::intValue).sum();
 
-        List<Integer> analysisData = DataAnalysis.takeDataForAnalysis(items);
-
-        Integer avgSalary = DataAnalysis.analysisAvgSalary(analysisData);
-        System.out.println(avgSalary);
+        return (sizeOfSalaryList != 0) ? salarySum / sizeOfSalaryList : 0;
     }
 }

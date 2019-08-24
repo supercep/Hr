@@ -2,6 +2,7 @@
 package ru.unic.hr.model;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -286,5 +287,12 @@ public class Item {
         Item rhs = ((Item) other);
         return new EqualsBuilder().append(insiderInterview, rhs.insiderInterview).append(sortPointDistance, rhs.sortPointDistance).append(department, rhs.department).append(premium, rhs.premium).append(employer, rhs.employer).append(snippet, rhs.snippet).append(type, rhs.type).append(url, rhs.url).append(contacts, rhs.contacts).append(publishedAt, rhs.publishedAt).append(id, rhs.id).append(area, rhs.area).append(alternateUrl, rhs.alternateUrl).append(archived, rhs.archived).append(relations, rhs.relations).append(address, rhs.address).append(createdAt, rhs.createdAt).append(applyAlternateUrl, rhs.applyAlternateUrl).append(name, rhs.name).append(responseUrl, rhs.responseUrl).append(responseLetterRequired, rhs.responseLetterRequired).append(salary, rhs.salary).append(hasTest, rhs.hasTest).isEquals();
     }
+
+    public static Comparator<Item> compareBySalary = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.getSalary().getFrom().compareTo(o2.getSalary().getFrom());
+        }
+    };
 
 }

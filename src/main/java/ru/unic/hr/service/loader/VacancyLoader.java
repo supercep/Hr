@@ -11,9 +11,9 @@ import java.util.List;
  * Created by BritikovMI on 22.08.2019.
  */
 public class VacancyLoader {
-    public static String load(String text, String area, String salaryFrom) {
+    public static String load(String text, String area, String salaryFrom, Integer perPage, Integer page, String experience) {
         URLBuilder builder = new URLBuilder();
-        String url = builder.urlBuilder(text, area, salaryFrom);
+        String url = builder.urlBuilder(text, area, salaryFrom, perPage, page, experience);
         return HttpRequest.doGet(url).toString();
     }
 }

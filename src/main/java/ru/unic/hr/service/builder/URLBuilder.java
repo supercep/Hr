@@ -1,5 +1,6 @@
 package ru.unic.hr.service.builder;
 
+import org.springframework.web.util.UriBuilder;
 import ru.unic.hr.service.loader.PropertiesLoader;
 
 /**
@@ -8,11 +9,12 @@ import ru.unic.hr.service.loader.PropertiesLoader;
 public class URLBuilder {
     static PropertiesLoader properties = new PropertiesLoader();
 
-    public String urlBuilder(String text, String area, String salaryFrom) {
+    public String urlBuilder(String text, String area, String salaryFrom, Integer perPagePrimary, Integer pagePrimary, String experience) {
         StringBuilder params = new StringBuilder();
         String concatParam;
         String attribute;
-        String perPage = "100";
+        String perPage = perPagePrimary.toString();
+        String page = pagePrimary.toString();
 
         if (text != null && !text.isEmpty()) {
             concatParam = "text";
@@ -34,16 +36,30 @@ public class URLBuilder {
             params = urlConcat(concatParam, params, attribute);
         }
 
-        if (salaryFrom != null && !salaryFrom.isEmpty()) {
+        if (perPage != null && !perPage.isEmpty()) {
             concatParam = "per_page";
             attribute = perPage;
             params = urlConcat(concatParam, params, attribute);
         }
 
+        if (page != null && !page.isEmpty()) {
+            concatParam = "page";
+            attribute = page;
+            params = urlConcat(concatParam, params, attribute);
+        }
 
-        return properties.getHhUrl()
+        if (experience != null && !experience.isEmpty()) {
+            concatParam = "experience";
+            attribute = experience;
+            params = urlConcat(concatParam, params, attribute);
+        }
+
+        String buildedUrl = properties.getHhUrl()
                 + properties.getHhVacancy()
                 + ((!params.toString().isEmpty() && params != null) ? "?" + params : "");
+        System.out.println("buildedUrl: " + buildedUrl);
+
+        return buildedUrl;
     }
 
     private StringBuilder urlConcat(String concatParam, StringBuilder params, String attribute) {
@@ -54,4 +70,5 @@ public class URLBuilder {
         }
         return params;
     }
+
 }
