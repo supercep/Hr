@@ -45,11 +45,9 @@ public class PropertiesLoaderTest {
         Integer avgSalary = DataAnalysis.analysisAvgSalary(analysisData);
 
         List<Item> itemsFinal = new ArrayList<>();
-        items.parallelStream()
-                .forEach(sal -> {
-                    if(sal.getSalary() != null && sal.getSalary().getFrom() != null)
-                        itemsFinal.add(sal);
-    });
+        itemsFinal = items.parallelStream()
+                .filter(sal -> sal.getSalary() != null && sal.getSalary().getFrom() != null)
+                .collect(Collectors.toList());
 
 
         Collections.sort(itemsFinal, Item.compareBySalary.reversed());
