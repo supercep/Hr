@@ -1,6 +1,5 @@
 .loader {
-    background: #000;
-    background: radial-gradient(#222, #000);
+    background: #1d1e2e;
     bottom: 0;
     left: 0;
     overflow: hidden;
@@ -53,19 +52,19 @@
 .loader-line-wrap:nth-child(5) { animation-delay: -250ms; }
 
 .loader-line-wrap:nth-child(1) .loader-line {
-    border-color: hsl(0, 80%, 60%);
+    border-color: hsl(282, 80%, 54.9%);
     height: 90px;
     width: 90px;
     top: 7px;
 }
 .loader-line-wrap:nth-child(2) .loader-line {
-    border-color: hsl(60, 80%, 60%);
+    border-color: hsl(214, 78.8%, 46.3%);
     height: 76px;
     width: 76px;
     top: 14px;
 }
 .loader-line-wrap:nth-child(3) .loader-line {
-    border-color: hsl(120, 80%, 60%);
+    border-color: hsl(166, 74.6%, 44.7%);
     height: 62px;
     width: 62px;
     top: 21px;
