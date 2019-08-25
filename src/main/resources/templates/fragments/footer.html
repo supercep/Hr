@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="footer (template, menu)">
 <body>
+<div class="loader">
+    <div class="loader-inner">
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+        <div class="loader-line-wrap">
+            <div class="loader-line"></div>
+        </div>
+    </div>
+</div>
+
+
+<img src="https://unsplash.com/photos/9XHjO5THz_U" alt="">
+
 <!--   Core JS Files   -->
 <script th:src="@{/js/core/jquery.min.js}"></script>
 <script th:src="@{/js/core/popper.min.js}"></script>
@@ -17,8 +40,14 @@
 <script th:src="@{/js/black-dashboard.min.js}"></script>
 <script th:src="@{/css/demo/demo.js}"></script>
 <script>
-    $(document).ready(function() {
-        $().ready(function() {
+    // $(window).load(function () {
+    //     $(".loader").delay(100).fadeOut().remove();
+    // });
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".loader").delay(100).fadeOut().remove();
+        }, 2000);
+        $().ready(function () {
             $sidebar = $('.sidebar');
             $navbar = $('.navbar');
             $main_panel = $('.main-panel');
@@ -34,8 +63,7 @@
             fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
-
-            $('.fixed-plugin a').click(function(event) {
+            $('.fixed-plugin a').click(function (event) {
                 if ($(this).hasClass('switch-trigger')) {
                     if (event.stopPropagation) {
                         event.stopPropagation();
@@ -45,7 +73,7 @@
                 }
             });
 
-            $('.fixed-plugin .background-color span').click(function() {
+            $('.fixed-plugin .background-color span').click(function () {
                 $(this).siblings().removeClass('active');
                 $(this).addClass('active');
 
@@ -68,7 +96,7 @@
                 }
             });
 
-            $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+            $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function () {
                 var $btn = $(this);
 
                 if (sidebar_mini_active == true) {
@@ -82,23 +110,23 @@
                 }
 
                 // we simulate the window Resize so the charts will get updated in realtime.
-                var simulateWindowResize = setInterval(function() {
+                var simulateWindowResize = setInterval(function () {
                     window.dispatchEvent(new Event('resize'));
                 }, 180);
 
                 // we stop the simulation of Window Resize after the animations are completed
-                setTimeout(function() {
+                setTimeout(function () {
                     clearInterval(simulateWindowResize);
                 }, 1000);
             });
 
-            $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+            $('.switch-change-color input').on("switchChange.bootstrapSwitch", function () {
                 var $btn = $(this);
 
                 if (white_color == true) {
 
                     $('body').addClass('change-background');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('body').removeClass('change-background');
                         $('body').removeClass('white-content');
                     }, 900);
@@ -106,7 +134,7 @@
                 } else {
 
                     $('body').addClass('change-background');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('body').removeClass('change-background');
                         $('body').addClass('white-content');
                     }, 900);
@@ -117,18 +145,18 @@
 
             });
 
-            $('.light-badge').click(function() {
+            $('.light-badge').click(function () {
                 $('body').addClass('white-content');
             });
 
-            $('.dark-badge').click(function() {
+            $('.dark-badge').click(function () {
                 $('body').removeClass('white-content');
             });
         });
     });
 </script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
 
