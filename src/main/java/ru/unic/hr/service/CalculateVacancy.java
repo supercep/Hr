@@ -3,12 +3,12 @@ package ru.unic.hr.service;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.unic.hr.model.form.Experience;
 import ru.unic.hr.model.Item;
 import ru.unic.hr.service.loader.VacancyLoader;
 import ru.unic.hr.service.parser.VacancyParser;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -21,12 +21,13 @@ public class CalculateVacancy {
 
     @RequestMapping("/")
     public String vacancyController(Model model) {
-        String text = "java";
+        String text = "Повар";
         String area = null;
         String salaryFrom = "";
         Integer perPage = 100;
         String experience = null;
         ru.unic.hr.model.Model vacancyInfo = getVacancies(text, area, salaryFrom, perPage, 0, experience);
+        Integer vacanciesFound = vacancyInfo.getFound();
         perPage = vacancyInfo.getPerPage();
         Integer pages = vacancyInfo.getPages();
         List<Item> items = new ArrayList<>();
@@ -51,9 +52,13 @@ public class CalculateVacancy {
 
         itemsFinal.sort(Item.compareBySalary.reversed());
 
+        List<Experience> experiences = Experience.getExperiences();
 
+        model.addAttribute("experiences", experiences);
+        model.addAttribute("maxSalary", (itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");
+        model.addAttribute("requestName", text);
         model.addAttribute("avgSalary", avgSalary);
-        model.addAttribute("vacancies", items.size());
+        model.addAttribute("vacancies", vacanciesFound);
         model.addAttribute("items", itemsFinal.subList(0, 20));
         return "db";
     }
