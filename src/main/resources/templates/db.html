@@ -21,9 +21,40 @@
                                     <label for="experience">Опыт работы</label>
                                     <select id="experience" name="experience" class="form-control">
                                         <option th:each="experience : ${experiences}"
-                                                th:value="${experience.value}"
-                                                th:text="${experience.text}"></option>
+                                                th:value="${experience.key}"
+                                                th:text="${experience.value}"></option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="accordion" id="accordionExample">
+                                <div class="card">
+                                    <div class="card-header" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link" style="color: rgba(255, 255, 255, 0.7) !important" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Дополнительные параметры
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="form-group col-6">
+                                                <label for="currency">Валюта</label>
+                                                <select id="currency" name="currency" class="form-control">
+                                                    <option th:each="currency : ${currencies}"
+                                                            th:value="${currency.code}"
+                                                            th:text="${currency.abbr}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="resume_search_label">Уникальные параметры</label>
+                                                <select id="resume_search_label" name="experience" class="form-control">
+                                                    <option th:each="resume_search_label : ${resume_search_labeles}"
+                                                            th:value="${resume_search_label.id}"
+                                                            th:text="${resume_search_label.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" value="Submit" class="btn btn-primary">Найти</button>

@@ -1,9 +1,6 @@
 package ru.unic.hr.service.loader;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.unic.hr.model.Item;
 import ru.unic.hr.service.DataAnalysis;
 
@@ -11,8 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
-import static ru.unic.hr.service.CalculateVacancy.getVacancies;
+import static ru.unic.hr.model.Model.getVacancies;
 
 /**
  * Created by BritikovMI on 22.08.2019.
@@ -26,7 +22,9 @@ public class PropertiesLoaderTest {
         String salaryFrom = "";
         Integer perPage = 100;
         String experience = "between1And3";
-        ru.unic.hr.model.Model vacancyInfo = getVacancies(text, area, salaryFrom, perPage, 0, experience);
+        String currency = null;
+        String searchLabel = null;
+        ru.unic.hr.model.Model vacancyInfo = getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, searchLabel);
         perPage = vacancyInfo.getPerPage();
         Integer pages = vacancyInfo.getPages();
 
@@ -36,7 +34,7 @@ public class PropertiesLoaderTest {
 
         Integer finalPerPage = perPage;
         range.parallelStream().forEach(i -> {
-                    items.addAll(getVacancies(text, area, salaryFrom, finalPerPage, i, experience).getItems());
+                    items.addAll(getVacancies(text, area, salaryFrom, finalPerPage, i, experience, currency, searchLabel).getItems());
                 }
         );
 

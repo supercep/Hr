@@ -4,7 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.unic.hr.model.form.Experience;
+import ru.unic.hr.model.dictionary.Currency;
+import ru.unic.hr.model.dictionary.Experience;
+import ru.unic.hr.model.dictionary.SearchLabel;
+import ru.unic.hr.model.form.BasicForm;
 import ru.unic.hr.model.form.Form;
 import ru.unic.hr.model.Item;
 
@@ -18,8 +21,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static ru.unic.hr.model.form.Experience.getExperiences;
-import static ru.unic.hr.service.CalculateVacancy.getVacancies;
+import static ru.unic.hr.model.dictionary.Currency.getCurrenciesProperties;
+import static ru.unic.hr.model.dictionary.Experience.getExperiencesProperties;
+import static ru.unic.hr.model.Model.getVacancies;
+import static ru.unic.hr.model.dictionary.SearchLabel.getSearchLabelProperties;
 
 /**
  * Created by BritikovMI on 15.08.2019.
@@ -38,47 +43,63 @@ public class RestServiceController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String getSubmit(@Valid @ModelAttribute("form") Form form, BindingResult result, Model model) {
-        String text = "Повар";
+        /*START BasicForm initialization*/
+        BasicForm bf = BasicForm.basicFormInitilizer();
+        String text = "";
         String experience = "";
+        String currency = "";
+        String search_label = "";
         if (form != null) {
-            text = (form.getSearch() != null) ? form.getSearch() : "Повар";
+            text = (form.getSearch() != null) ? form.getSearch() : bf.getText();
             experience = form.getExperience();
+            currency = (form.getCurrency() != null) ? form.getCurrency() : bf.getCurrency();
+            search_label = (form.getResume_search_label() != null) ? form.getResume_search_label() : bf.getSearchLabel();
         }
-        String area = null;
-        String salaryFrom = "";
-        Integer perPage = 100;
-        ru.unic.hr.model.Model vacancyInfo = getVacancies(text, area, salaryFrom, perPage, 0, experience);
+        String area = bf.getArea();
+        String salaryFrom = bf.getSalaryFrom();
+        Integer perPage = bf.getPerPage();
+        /*END BasicForm initialization*/
+
+        ru.unic.hr.model.Model vacancyInfo = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, search_label); // Получаем базовую информацию по запросу
+
         Integer vacanciesFound = vacancyInfo.getFound();
         perPage = vacancyInfo.getPerPage();
         Integer pages = vacancyInfo.getPages();
+
+
         List<Item> items = new ArrayList<>();
 
-        List<Integer> range = IntStream.rangeClosed(0, pages).boxed().collect(Collectors.toList());
-
-        Integer finalPerPage = perPage;
-        String finalText = text;
-        String finalExperience = experience;
-        range.parallelStream().forEach(i -> {
-                    items.addAll(getVacancies(finalText, area, salaryFrom, finalPerPage, i, finalExperience).getItems());
-                }
-        );
+        if(vacanciesFound!=null && vacanciesFound != 0) { //Если по запросу пришли вакансии, то получаем
+            items = Item.getItems(text, area, salaryFrom, experience, pages, perPage, currency, search_label);
+        } else{ //Если не пришли, то пока просто возвращаем базовое заполнение
+            text = bf.getText();
+            area = bf.getArea();
+            salaryFrom = bf.getSalaryFrom();
+            experience = bf.getExperience();
+            currency = bf.getCurrency();
+            search_label = bf.getSearchLabel();
+            vacancyInfo = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, search_label); // Получаем базовую информацию по запросу
+            perPage = vacancyInfo.getPerPage();
+            pages = vacancyInfo.getPages();
+            items = Item.getItems(text, area, salaryFrom, experience, pages, perPage, currency, search_label);
+        }
 
         List<Integer> analysisData = DataAnalysis.takeDataForAnalysis(items);
 
         Integer avgSalary = DataAnalysis.analysisAvgSalary(analysisData);
 
-        List<Item> itemsFinal = new ArrayList<>();
-        itemsFinal = items.parallelStream()
+        List<Item> itemsFinal = items.parallelStream()
                 .filter(sal -> sal.getSalary() != null && sal.getSalary().getFrom() != null)
+                .sorted(Item.compareBySalary.reversed())
                 .collect(Collectors.toList());
 
 
-        itemsFinal.sort(Item.compareBySalary.reversed());
-
-        List<Experience> experiences = getExperiences();
-
-
-        model.addAttribute("experiences", experiences);
+        List<Experience> experiencesProperties = getExperiencesProperties();
+        List<Currency> currenciesProperties = getCurrenciesProperties();
+        List<SearchLabel> searchLabelProperties = getSearchLabelProperties();
+        model.addAttribute("experiences", experiencesProperties);
+        model.addAttribute("currencies", currenciesProperties);
+        model.addAttribute("resume_search_labeles", searchLabelProperties);
         model.addAttribute("maxSalary", (itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");
         model.addAttribute("requestName", text);
         model.addAttribute("avgSalary", avgSalary);

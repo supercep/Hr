@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import ru.unic.hr.service.loader.VacancyLoader;
+import ru.unic.hr.service.parser.VacancyParser;
 
 public class Model {
 
@@ -120,6 +122,19 @@ public class Model {
         }
         Model rhs = ((Model) other);
         return new EqualsBuilder().append(arguments, rhs.arguments).append(alternateUrl, rhs.alternateUrl).append(clusters, rhs.clusters).append(page, rhs.page).append(items, rhs.items).append(pages, rhs.pages).append(perPage, rhs.perPage).append(found, rhs.found).isEquals();
+    }
+
+    public static Model getVacancies(String text, String area, String salaryFrom, Integer perPage, Integer page, String experience, String currency, String search_label) {
+        String content = VacancyLoader.load(text, area, salaryFrom, perPage, page, experience, currency, search_label);
+
+        VacancyParser parser = new VacancyParser();
+        Model vacancyModel = null;
+
+        if (content != null && !content.isEmpty()) {
+            vacancyModel = parser.parse(content);
+        }
+
+        return vacancyModel;
     }
 
 }

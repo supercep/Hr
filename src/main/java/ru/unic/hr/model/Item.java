@@ -4,6 +4,9 @@ package ru.unic.hr.model;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -289,5 +292,19 @@ public class Item {
     }
 
     public static Comparator<Item> compareBySalary = Comparator.comparing(o -> o.getSalary().getFrom());
+
+    public static List<Item> getItems(String text, String area, String salaryFrom, String experience, Integer pages, Integer perPage, String currency, String searchLabel) {
+        List<Item> items = new ArrayList<>();
+
+        List<Integer> range = IntStream.rangeClosed(0, pages).boxed().collect(Collectors.toList());
+
+        Integer finalPerPage = perPage;
+        range.parallelStream().forEach(i -> {
+                    items.addAll(Model.getVacancies(text, area, salaryFrom, finalPerPage, i, experience, currency, searchLabel).getItems());
+                }
+        );
+
+        return items;
+    }
 
 }
