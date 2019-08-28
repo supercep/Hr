@@ -44,21 +44,22 @@ public class RestServiceController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String getSubmit(@Valid @ModelAttribute("form") Form form, BindingResult result, Model model) {
+    public String getSubmit(@Valid @ModelAttribute(value = "form") Form form, BindingResult result, Model model) {
         /*START BasicForm initialization*/
         BasicForm bf = BasicForm.basicFormInitilizer();
         String text = "";
         String experience = "";
         String currency = "";
         String searchLabel = "";
-        System.out.println(form.getSearch() + " " + form.getExperience() + " " + form.getCurrency() + " " + form.getResume_search_label());
+if(form.getCurrency() != null && form.getExperience() !=null && form.getResume_search_label() != null)
+        System.out.println(form.getSearch() + " " + form.getExperience().getValue() + " " + form.getCurrency().getCode() + " " + form.getResume_search_label().getId());
         if (form != null) {
             text = (form.getSearch() != null) ? form.getSearch() : bf.getText();
-            experience = form.getExperience();
+            experience = form.getExperience().getValue();
             experience = (experience != null) ? experience : "";
             System.out.println("EXP: " + experience);
-            currency = (form.getCurrency() != null) ? form.getCurrency() : bf.getCurrency();
-            searchLabel = (form.getResume_search_label() != null) ? form.getResume_search_label() : bf.getSearchLabel();
+            currency = (form.getCurrency() != null) ? form.getCurrency().getCode() : bf.getCurrency();
+            searchLabel = (form.getResume_search_label() != null) ? form.getResume_search_label().getId() : bf.getSearchLabel();
         }
         String area = bf.getArea();
         String salaryFrom = bf.getSalaryFrom();
