@@ -300,7 +300,7 @@ public class Item {
 
         Integer finalPerPage = perPage;
         range.parallelStream().forEach(i -> {
-                    items.addAll(Model.getVacancies(text, area, salaryFrom, finalPerPage, i, experience, currency, searchLabel).getItems());
+                    items.addAll(Model.getVacancies(text, area, salaryFrom, finalPerPage, i, experience, currency, searchLabel).entrySet().iterator().next().getKey().getItems());
                 }
         );
 

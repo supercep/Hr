@@ -11,6 +11,7 @@ import ru.unic.hr.model.form.BasicForm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.unic.hr.model.dictionary.Currency.getCurrenciesProperties;
@@ -36,7 +37,11 @@ public class CalculateVacancy {
         String searchLabel = bf.getSearchLabel();
         /*END BasicForm initialization*/
 
-        ru.unic.hr.model.Model vacancyInfo = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, searchLabel); // Получаем базовую информацию по запросу
+        Map<ru.unic.hr.model.Model, Boolean> vacancyInfoMap = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, searchLabel); // Получаем базовую информацию по запросу
+
+        Map.Entry<ru.unic.hr.model.Model, Boolean> entry = vacancyInfoMap.entrySet().iterator().next();
+        ru.unic.hr.model.Model vacancyInfo = entry.getKey();
+        Boolean isContainsVacancy = entry.getValue();
 
         Integer vacanciesFound = vacancyInfo.getFound();
         perPage = vacancyInfo.getPerPage();
@@ -45,18 +50,24 @@ public class CalculateVacancy {
 
         List<Item> items = new ArrayList<>();
 
-        if(vacanciesFound != 0) { //Если по запросу пришли вакансии, то получаем
+        System.out.println("calculateVacancy");
+        if (isContainsVacancy) { //Если по запросу пришли вакансии, то получаем
+            System.out.println("МЫ тут в calculateVacancy");
+            vacanciesFound = vacancyInfo.getFound();
+            perPage = vacancyInfo.getPerPage();
+            pages = vacancyInfo.getPages();
             items = Item.getItems(text, area, salaryFrom, experience, pages, perPage, currency, searchLabel);
-        } else{ //Если не пришли, то пока просто возвращаем базовое заполнение
+        } else { //Если не пришли, то пока просто возвращаем базовое заполнение
             text = bf.getText();
             area = bf.getArea();
             salaryFrom = bf.getSalaryFrom();
             experience = bf.getExperience();
             currency = bf.getCurrency();
             searchLabel = bf.getSearchLabel();
-            vacancyInfo = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, searchLabel); // Получаем базовую информацию по запросу
+            vacancyInfo = ru.unic.hr.model.Model.getVacancies(text, area, salaryFrom, perPage, 0, experience, currency, searchLabel).entrySet().iterator().next().getKey(); // Получаем базовую информацию по запросу
             perPage = vacancyInfo.getPerPage();
             pages = vacancyInfo.getPages();
+            vacanciesFound = vacancyInfo.getFound();
             items = Item.getItems(text, area, salaryFrom, experience, pages, perPage, currency, searchLabel);
         }
 

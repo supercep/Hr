@@ -9,7 +9,10 @@ import ru.unic.hr.service.loader.PropertiesLoader;
 public class URLBuilder {
     static PropertiesLoader properties = new PropertiesLoader();
 
-    public String urlBuilder(String text, String area, String salaryFrom, Integer perPagePrimary, Integer pagePrimary, String experience, String currency, String search_label) {
+    public String urlBuilder(String text, String area,
+                             String salaryFrom, Integer perPagePrimary,
+                             Integer pagePrimary, String experience,
+                             String currency, String search_label) {
         StringBuilder params = new StringBuilder();
         String concatParam;
         String attribute;
@@ -59,18 +62,17 @@ public class URLBuilder {
             attribute = currency;
             params = urlConcat(concatParam, params, attribute);
         }
-/*
+
         if (search_label != null && !search_label.isEmpty()) {
             concatParam = "resume_search_label";
             attribute = search_label;
             params = urlConcat(concatParam, params, attribute);
-        }*/
+        }
 
 
         String buildedUrl = properties.getHhUrl()
                 + properties.getHhVacancy()
                 + ((!params.toString().isEmpty() && params != null) ? "?" + params : "");
-        System.out.println("buildedUrl: " + buildedUrl);
 
         return buildedUrl;
     }
@@ -83,4 +85,5 @@ public class URLBuilder {
         }
         return params;
     }
+
 }

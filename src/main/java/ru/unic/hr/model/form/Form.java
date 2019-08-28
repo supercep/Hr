@@ -1,5 +1,6 @@
 package ru.unic.hr.model.form;
 
+
 import java.util.List;
 
 /**
@@ -41,6 +42,13 @@ public class Form {
     }
 
     public void setResume_search_label(String resume_search_label) {
+        this.resume_search_label = resume_search_label;
+    }
+
+    public Form(String search, String experience, String currency, String resume_search_label) {
+        this.search = search;
+        this.experience = experience;
+        this.currency = currency;
         this.resume_search_label = resume_search_label;
     }
 }

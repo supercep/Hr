@@ -2,7 +2,10 @@
 package ru.unic.hr.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -124,17 +127,20 @@ public class Model {
         return new EqualsBuilder().append(arguments, rhs.arguments).append(alternateUrl, rhs.alternateUrl).append(clusters, rhs.clusters).append(page, rhs.page).append(items, rhs.items).append(pages, rhs.pages).append(perPage, rhs.perPage).append(found, rhs.found).isEquals();
     }
 
-    public static Model getVacancies(String text, String area, String salaryFrom, Integer perPage, Integer page, String experience, String currency, String search_label) {
+    public static Map<Model, Boolean> getVacancies(String text, String area, String salaryFrom, Integer perPage, Integer page, String experience, String currency, String search_label) {
         String content = VacancyLoader.load(text, area, salaryFrom, perPage, page, experience, currency, search_label);
 
         VacancyParser parser = new VacancyParser();
         Model vacancyModel = null;
 
-        if (content != null && !content.isEmpty()) {
+        Map<Model, Boolean> modelContainsMap = new HashMap<>();
+        if (content != null && !content.isEmpty() && !content.contains("bad argument")) {
             vacancyModel = parser.parse(content);
-        }
+            modelContainsMap.put(vacancyModel, true);
+        }else
+            modelContainsMap.put(vacancyModel, false);
 
-        return vacancyModel;
+        return modelContainsMap;
     }
 
 }
