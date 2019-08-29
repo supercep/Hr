@@ -1,9 +1,6 @@
 package ru.unic.hr.model.form;
 
 
-import ru.unic.hr.model.dictionary.Currency;
-import ru.unic.hr.model.dictionary.SearchLabel;
-
 import java.util.List;
 
 /**
@@ -12,9 +9,9 @@ import java.util.List;
 public class Form {
     private String search;
     //private Experience experience;
-    private Experience experience;
-    private Currency currency;
-    private SearchLabel resume_search_label;
+    private String experience;
+    private String currency;
+    private String resume_search_label;
 
     public String getSearch() {
         return search;
@@ -24,27 +21,34 @@ public class Form {
         this.search = search;
     }
 
-    public Experience getExperience() {
+    public String getExperience() {
         return experience;
     }
 
-    public void setExperience(Experience experience) {
+    public void setExperience(String experience) {
         this.experience = experience;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 
-    public SearchLabel getResume_search_label() {
+    public String getResume_search_label() {
         return resume_search_label;
     }
 
-    public void setResume_search_label(SearchLabel resume_search_label) {
+    public void setResume_search_label(String resume_search_label) {
+        this.resume_search_label = resume_search_label;
+    }
+
+    public Form(String search, String experience, String currency, String resume_search_label) {
+        this.search = search;
+        this.experience = experience;
+        this.currency = currency;
         this.resume_search_label = resume_search_label;
     }
 }
