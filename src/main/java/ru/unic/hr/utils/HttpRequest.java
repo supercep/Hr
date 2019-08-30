@@ -26,6 +26,20 @@ public class HttpRequest {
         return response.getBody().getObject();
     }
 
+    public static JsonNode doGet(String uri, Boolean node){
+        HttpResponse<JsonNode> response = null;
+        try {
+            response = Unirest.get(uri)
+                    .header("Accept", "application/json")
+                    .header("Content-Type", "application/json")
+                    .header("User-Agent", "")
+                    .asJson();
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        return response.getBody();
+    }
+
     public static JSONObject doGet(String uri){
         HttpResponse<JsonNode> response = null;
         try {

@@ -1,40 +1,32 @@
 package ru.unic.hr.model.dictionary;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import ru.unic.hr.model.Model;
-import ru.unic.hr.service.loader.AreasLoader;
-import ru.unic.hr.service.loader.VacancyLoader;
-import ru.unic.hr.service.parser.AreasParser;
-import ru.unic.hr.service.parser.VacancyParser;
 
-public class Area {
+public class ChildAreas {
 
     @SerializedName("id")
     @Expose
     private String id;
     @SerializedName("parent_id")
     @Expose
-    private Object parentId;
+    private String parentId;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("areas")
     @Expose
-    private List<ChildAreas> areas = null;
+    private List<Object> areas = null;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Area() {
+    public ChildAreas() {
     }
 
     /**
@@ -44,7 +36,7 @@ public class Area {
      * @param name
      * @param areas
      */
-    public Area(String id, Object parentId, String name, List<ChildAreas> areas) {
+    public ChildAreas(String id, String parentId, String name, List<Object> areas) {
         super();
         this.id = id;
         this.parentId = parentId;
@@ -60,20 +52,20 @@ public class Area {
         this.id = id;
     }
 
-    public Area withId(String id) {
+    public ChildAreas withId(String id) {
         this.id = id;
         return this;
     }
 
-    public Object getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Object parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
-    public Area withParentId(Object parentId) {
+    public ChildAreas withParentId(String parentId) {
         this.parentId = parentId;
         return this;
     }
@@ -86,20 +78,20 @@ public class Area {
         this.name = name;
     }
 
-    public Area withName(String name) {
+    public ChildAreas withName(String name) {
         this.name = name;
         return this;
     }
 
-    public List<ChildAreas> getAreas() {
+    public List<Object> getAreas() {
         return areas;
     }
 
-    public void setAreas(List<ChildAreas> areas) {
+    public void setAreas(List<Object> areas) {
         this.areas = areas;
     }
 
-    public Area withAreas(List<ChildAreas> areas) {
+    public ChildAreas withAreas(List<Object> areas) {
         this.areas = areas;
         return this;
     }
@@ -119,10 +111,10 @@ public class Area {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Area) == false) {
+        if ((other instanceof ChildAreas) == false) {
             return false;
         }
-        Area rhs = ((Area) other);
+        ChildAreas rhs = ((ChildAreas) other);
         return new EqualsBuilder().append(id, rhs.id).append(parentId, rhs.parentId).append(name, rhs.name).append(areas, rhs.areas).isEquals();
     }
 

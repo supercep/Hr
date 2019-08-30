@@ -50,7 +50,7 @@
         }, 2000);
 
 
-        var lat, long;
+/*        var lat, long; cityname getter
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 lat = position.coords.latitude;
@@ -61,27 +61,20 @@
                     "&lon=" +
                     long;
                 $.getJSON(api, function(json) {
-                    var country = json.sys.country;
-                    var city = json.name;
+                    // var country = json.sys.country;
+                    // var city = json.name;
                     alert("Your city is: " + json);
                     alert("Your city is: " + api);
                     console.log("Your city is: " + json);
                     console.log("Your city is: " + api);
-                    /*$("#city").html("Your city is: " + city);
-                    $("#country").html("Your country is: " + country);*/
+                    /!*$("#city").html("Your city is: " + city);
+                    $("#country").html("Your country is: " + country);*!/
                 });
             });
         } else {
             alert("Your browser does not allow you to view weather details.");
-        }
+        }*/
 
-    /*    $.getJSON('https://nominatim.openstreetmap.org/reverse?format=json&lat=55.692491999999994&lon=37.6633402', {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude,
-            type: 'JSON'
-        }, function (result) {
-            alert(result);
-        });*/
         $('.selectpicker').selectpicker();
         $().ready(function () {
             $sidebar = $('.sidebar');

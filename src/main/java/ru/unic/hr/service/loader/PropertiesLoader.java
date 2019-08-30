@@ -35,4 +35,7 @@ public class PropertiesLoader {
     public String getHhPropertyText() {
         return instance.getProperty("hh.property.text");
     }
+    public String getHhPropertyAreas() {
+        return instance.getProperty("hh.property.areas");
+    }
 }
