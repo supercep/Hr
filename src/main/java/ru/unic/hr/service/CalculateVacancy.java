@@ -7,6 +7,7 @@ import ru.unic.hr.model.dictionary.Currency;
 import ru.unic.hr.model.dictionary.Experience;
 import ru.unic.hr.model.Item;
 import ru.unic.hr.model.dictionary.SearchLabel;
+import ru.unic.hr.model.dictionary.area.Area;
 import ru.unic.hr.model.form.BasicForm;
 
 import java.util.ArrayList;
@@ -84,7 +85,9 @@ public class CalculateVacancy {
         List<Experience> experiencesProperties = getExperiencesProperties();
         List<Currency> currenciesProperties = getCurrenciesProperties();
         List<SearchLabel> searchLabelProperties = getSearchLabelProperties();
+
         model.addAttribute("experiences", experiencesProperties);
+        model.addAttribute("cities", Area.getModel());
         model.addAttribute("currencies", currenciesProperties);
         model.addAttribute("resume_search_labeles", searchLabelProperties);
         model.addAttribute("maxSalary", (itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");
