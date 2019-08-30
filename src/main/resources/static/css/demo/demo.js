@@ -1,3 +1,4 @@
+/*
 type = ['primary', 'info', 'success', 'warning', 'danger'];
 
 demo = {
@@ -739,4 +740,4 @@ demo = {
     });
   }
 
-};
+};*/

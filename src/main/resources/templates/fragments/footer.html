@@ -22,7 +22,7 @@
 </div>
 
 
-<img src="https://unsplash.com/photos/9XHjO5THz_U" alt="">
+<!--<img src="https://unsplash.com/photos/9XHjO5THz_U" alt="">-->
 
 <!--   Core JS Files   -->
 <script th:src="@{/js/core/jquery.min.js}"></script>
@@ -31,7 +31,7 @@
 <script th:src="@{/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
 <!--  Google Maps Plugin    -->
 <!-- Place this tag in your head or just before your close body tag. -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>-->
 <!-- Chart JS -->
 <script th:src="@{/js/plugins/chartjs.min.js}"></script>
 <!--  Notifications Plugin    -->
@@ -43,10 +43,33 @@
     // $(window).load(function () {
     //     $(".loader").delay(100).fadeOut().remove();
     // });
+
     $(document).ready(function () {
         setTimeout(function () {
             $(".loader").delay(100).fadeOut().remove();
         }, 2000);
+
+        // the location we want to GeoCode
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+
+        // we are using MapQuest's Nominatim service
+        var geocode = 'https://nominatim.openstreetmap.org/reverse?format=json&lat=' + lat + '&lon=' + lon;
+
+        // use jQuery to call the API and get the JSON results
+        $.getJSON(geocode, function(data) {
+
+            // the full results JSON
+            console.log(data);
+        });
+
+    /*    $.getJSON('https://nominatim.openstreetmap.org/reverse?format=json&lat=55.692491999999994&lon=37.6633402', {
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+            type: 'JSON'
+        }, function (result) {
+            alert(result);
+        });*/
         $('.selectpicker').selectpicker();
         $().ready(function () {
             $sidebar = $('.sidebar');
@@ -156,13 +179,13 @@
         });
     });
 </script>
-<script>
+<!--<script>
     $(document).ready(function () {
         // Javascript method's body can be found in assets/js/demos.js
         demo.initDashboardPageCharts();
 
     });
-</script>
+</script>-->
 <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
 <script>
     window.TrackJS &&
