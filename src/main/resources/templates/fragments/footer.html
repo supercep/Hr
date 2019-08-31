@@ -13,10 +13,10 @@
             <div class="loader-line"></div>
         </div>
         <!--<div class="loader-line-wrap">-->
-            <!--<div class="loader-line"></div>-->
+        <!--<div class="loader-line"></div>-->
         <!--</div>-->
         <!--<div class="loader-line-wrap">-->
-            <!--<div class="loader-line"></div>-->
+        <!--<div class="loader-line"></div>-->
         <!--</div>-->
     </div>
 </div>
@@ -40,9 +40,41 @@
 <script th:src="@{/js/black-dashboard.min.js}"></script>
 <script th:src="@{/css/demo/demo.js}"></script>
 <script>
-    // $(window).load(function () {
-    //     $(".loader").delay(100).fadeOut().remove();
-    // });
+//jQuery extension method:
+jQuery.fn.filterByText = function(textbox) {
+  return this.each(function() {
+    var select = this;
+    var options = [];
+    $(select).find('option').each(function() {
+      options.push({
+        value: $(this).val(),
+        text: $(this).text()
+      });
+    });
+    $(select).data('options', options);
+
+    $(textbox).bind('change keyup', function() {
+      var options = $(select).empty().data('options');
+      var search = $.trim($(this).val());
+      var regex = new RegExp(search, "gi");
+
+      $.each(options, function(i) {
+        var option = options[i];
+        if (option.text.match(regex) !== null) {
+          $(select).append(
+            $('<option>').text(option.text).val(option.value)
+          );
+        }
+      });
+    });
+  });
+};
+
+// You could use it like this:
+
+$(function() {
+  $('#area').filterByText($('#searchByCities'));
+});
 
     $(document).ready(function () {
         setTimeout(function () {
@@ -183,6 +215,7 @@
             });
         });
     });
+
 </script>
 <!--<script>
     $(document).ready(function () {
@@ -198,6 +231,7 @@
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "black-dashboard-free"
     });
+
 </script>
 </div>
 </body>

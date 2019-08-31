@@ -87,7 +87,7 @@ public class CalculateVacancy {
         List<SearchLabel> searchLabelProperties = getSearchLabelProperties();
 
         model.addAttribute("experiences", experiencesProperties);
-        model.addAttribute("cities", Area.getModel());
+        model.addAttribute("areas", Area.areaGetter(Area.getModel()));
         model.addAttribute("currencies", currenciesProperties);
         model.addAttribute("resume_search_labeles", searchLabelProperties);
         model.addAttribute("maxSalary", (itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");

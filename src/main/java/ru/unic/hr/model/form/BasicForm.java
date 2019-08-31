@@ -70,7 +70,7 @@ public class BasicForm {
 
     public static BasicForm basicFormInitilizer() {
         BasicForm bf = new BasicForm();
-        bf.setArea(null);
+        bf.setArea("113");
         bf.setSalaryFrom(null);
         bf.setSalaryFrom(null);
         bf.setPerPage(100);

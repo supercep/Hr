@@ -14,7 +14,7 @@ public class CreateAreas {
         List<Area> areas = Area.getModel();
 
         areas.forEach(s-> {
-            List<Area.AreasBeanX> subArea = s.getAreas();
+            List<Area> subArea = s.getAreas();
             System.out.println(s.getId() + " " + s.getName());
             subArea.forEach(sub-> System.out.println("\t" + sub.getId() + " " + sub.getName()));
         });
