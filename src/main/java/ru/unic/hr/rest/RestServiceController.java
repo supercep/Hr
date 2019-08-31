@@ -55,7 +55,7 @@ public class RestServiceController {
         String area = "";
         System.out.println(form.getSearch() + " " + form.getExperience() + " " + form.getCurrency() + " " + form.getResume_search_label());
         if (form != null) {
-            text = (form.getSearch() != null) ? form.getSearch() : bf.getText();
+            text = (form.getSearch().trim() != null) ? form.getSearch().trim() : bf.getText();
             experience = form.getExperience();
             experience = (experience != null) ? experience : "";
             System.out.println("EXP: " + experience);

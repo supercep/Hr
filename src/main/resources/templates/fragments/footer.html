@@ -19,6 +19,31 @@
         <!--<div class="loader-line"></div>-->
         <!--</div>-->
     </div>
+
+    <!--Modal-->
+    <div class="modal fade" id="noMoreVacancies">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+
+                    </button>
+                    <h4 class="modal-title">Вакансии не найдены</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>Извините, по Вашему запросу вакансий не найдено. Попробуйте расширить условия поиска.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!--End Modal-->
 </div>
 
 
@@ -81,6 +106,10 @@ $(function() {
             $(".loader").delay(100).fadeOut().remove();
         }, 2000);
 
+
+        if ($('#vacancies span').text() == "0") {
+            $('#noMoreVacancies').modal('show');
+        }
 
 /*        var lat, long; cityname getter
         if (navigator.geolocation) {
