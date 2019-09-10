@@ -52,17 +52,16 @@ public class RestServiceController {
         String experience = "";
         String currency = "";
         String searchLabel = "";
-        String area = "";
         System.out.println(form.getSearch() + " " + form.getExperience() + " " + form.getCurrency() + " " + form.getResume_search_label());
         if (form != null) {
-            text = (form.getSearch().trim() != null) ? form.getSearch().trim() : bf.getText();
+            text = (form.getSearch() != null) ? form.getSearch().replace(" ", "+") : bf.getText();
             experience = form.getExperience();
             experience = (experience != null) ? experience : "";
             System.out.println("EXP: " + experience);
             currency = (form.getCurrency() != null) ? form.getCurrency() : bf.getCurrency();
             searchLabel = (form.getResume_search_label() != null) ? form.getResume_search_label() : bf.getSearchLabel();
-            area = (form.getArea() != null) ? form.getArea() : bf.getArea();
         }
+        String area = bf.getArea();
         String salaryFrom = bf.getSalaryFrom();
         Integer perPage = bf.getPerPage();
         Integer vacanciesFound;
@@ -111,14 +110,14 @@ public class RestServiceController {
         List<Currency> currenciesProperties = getCurrenciesProperties();
         List<SearchLabel> searchLabelProperties = getSearchLabelProperties();
         model.addAttribute("experiences", experiencesProperties);
-        model.addAttribute("areas", Area.areaGetter(Area.getModel()));
+        model.addAttribute("cities", Area.getModel());
         model.addAttribute("currencies", currenciesProperties);
         model.addAttribute("resume_search_labeles", searchLabelProperties);
-        model.addAttribute("maxSalary", (!itemsFinal.isEmpty() && itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");
-        model.addAttribute("requestName", text);
+        model.addAttribute("maxSalary", (itemsFinal.get(0) != null && itemsFinal.get(0).getSalary() != null) ? itemsFinal.get(0).getSalary().getFrom() : "");
+        model.addAttribute("requestName", text.replace("+", " "));
         model.addAttribute("avgSalary", avgSalary);
         model.addAttribute("vacancies", vacanciesFound);
-        model.addAttribute("items", (itemsFinal.size() > 20) ? itemsFinal.subList(0, 20) : itemsFinal);
+        model.addAttribute("items", itemsFinal.subList(0, 20));
         model.addAttribute("form", form);
 
         return "db";
