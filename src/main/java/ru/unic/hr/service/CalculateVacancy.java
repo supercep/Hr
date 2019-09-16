@@ -1,15 +1,20 @@
 package ru.unic.hr.service;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.unic.hr.model.Item;
 import ru.unic.hr.model.dictionary.Currency;
 import ru.unic.hr.model.dictionary.Experience;
-import ru.unic.hr.model.Item;
 import ru.unic.hr.model.dictionary.SearchLabel;
 import ru.unic.hr.model.dictionary.area.Area;
 import ru.unic.hr.model.form.BasicForm;
+import ru.unic.hr.service.builder.ReportingEngine;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +29,9 @@ import static ru.unic.hr.model.dictionary.SearchLabel.getSearchLabelProperties;
  */
 @Controller
 public class CalculateVacancy {
+
+    private String xlsxReportName = "xlsReport.xls";
+    private List<Item> itemsFinal;
 
     @RequestMapping("/")
     public String vacancyController(Model model) {
@@ -76,7 +84,7 @@ public class CalculateVacancy {
 
         Integer avgSalary = DataAnalysis.analysisAvgSalary(analysisData);
 
-        List<Item> itemsFinal = items.parallelStream()
+        itemsFinal = items.parallelStream()
                 .filter(sal -> sal.getSalary() != null && sal.getSalary().getFrom() != null)
                 .sorted(Item.compareBySalary.reversed())
                 .collect(Collectors.toList());
@@ -96,6 +104,16 @@ public class CalculateVacancy {
         model.addAttribute("vacancies", vacanciesFound);
         model.addAttribute("items", itemsFinal.subList(0, 20));
         return "db";
+    }
+
+    @GetMapping("/downloadXLSXReport")
+    public void download(HttpServletResponse response) throws Exception {
+       Workbook workbook = new HSSFWorkbook();
+
+       workbook =  ReportingEngine.getXLSXWorkbookItemsReport(itemsFinal);
+
+        response.setHeader("Content-disposition", "attachment; filename=" + xlsxReportName);
+        workbook.write(response.getOutputStream());
     }
 
 }
