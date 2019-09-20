@@ -2,9 +2,11 @@ package ru.unic.hr.service.text;
 
 import org.junit.Test;
 import ru.unic.hr.model.WordWeight;
+import ru.unic.hr.model.words.MatrixRow;
 import ru.unic.hr.service.file.FileReader;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -76,16 +78,20 @@ public class TextServiceTest {
     }
 
     private void buildSimilarityMatrix(List<String> sentences) {
-        Double[][] mtx = new Double[sentences.size()][sentences.size()];
-
+        List<MatrixRow> matrix = new ArrayList<>();
         sentences.forEach(sn1 -> {
             sentences.forEach(sn2 -> {
-                if(!sn1.equalsIgnoreCase(sn2)){}
-                    //mtx[sn1][sn2] = sentenceSimilarity(sentences[sn1], sentences[sn2], stop_words); build an a sim mtx
-
+                        if (!sn1.equalsIgnoreCase(sn2)) {
+                            matrix.add(sentenceSimilarity(sn1, sn2));
+                        }
                     }
             );
         });
+    }
+
+    private MatrixRow sentenceSimilarity(String sn1, String sn2) {
+
+        return new MatrixRow();
     }
 
     public static List<WordWeight> countWeight(List<WordWeight> wordWeights, Integer maxCount) {
