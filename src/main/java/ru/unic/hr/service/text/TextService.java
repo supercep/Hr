@@ -1,21 +1,14 @@
 package ru.unic.hr.service.text;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by BritikovMI on 11.09.2019.
  */
 public class TextService {
-    public static List<String> getSentences(String content) {
-        List<String> sentences = new ArrayList<>();
-        Arrays.stream(content.split("\\."))
-                .forEach(sentence -> sentences.add(sentence + "."));
-
-        return sentences;
+    public static List<String> getListOfSentences(String content) {
+        return Arrays.asList(content.split("\\. (?![^()]*\\))"));
     }
 
     public static String deleteStopWords(String content) {

@@ -1,14 +1,12 @@
 package ru.unic.hr.service.text;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import ru.unic.hr.model.WordWeight;
 import ru.unic.hr.service.file.FileReader;
 
 import java.io.File;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by BritikovMI on 11.09.2019.
@@ -19,11 +17,22 @@ public class TextServiceTest {
     public void getSentences() {
         File file = new File("C:\\Users\\BritikovMI\\Desktop\\msft.txt");
 
-        String filteredText = TextService.deleteStopWords(FileReader.getFile(file));
+        String filteredText = TextService.deleteStopWords(FileReader.getFileContent(file));
+
+        List<String> sentences = TextService.getListOfSentences(filteredText);
+
+        sentences
+                .forEach(System.out::println);
+
+        buildSimilarityMatrix(sentences);
 
         List<String> strings = Arrays.asList(filteredText.split(" "));
 
-        List<WordWeight> weights = new ArrayList<>();
+        Double[][] wordMatrix = new Double[sentences.size()][sentences.size()];
+
+
+
+        /*List<WordWeight> weights = new ArrayList<>();
         Map<String, Integer> wght = new HashMap<>();
         strings.forEach(str -> {
             wght.put(str, StringUtils.countMatches(filteredText, str));
@@ -43,10 +52,12 @@ public class TextServiceTest {
 
         weights = countWeight(weights, maxCount);
 
-        List<String> sentences = TextService.getSentences(filteredText);
+        List<String> sentences = TextService.getListOfSentences(filteredText);
 
+        sentences.forEach(System.out::println);
         Map<String, Double> sentenceWeights = new HashMap<>();
         List<WordWeight> finalWeights1 = weights;
+
         sentences.forEach(snt -> {
             AtomicReference<Double> cvv = new AtomicReference<Double>(0D);
             Arrays.asList(snt.split(" "))
@@ -61,7 +72,20 @@ public class TextServiceTest {
             sentenceWeights.put(snt, cvv.get());
         });
 
-        sentenceWeights.forEach((s, h) -> System.out.println(h + " " + s));
+        sentenceWeights.forEach((s, h) -> System.out.println(h + " " + s));*/
+    }
+
+    private void buildSimilarityMatrix(List<String> sentences) {
+        Double[][] mtx = new Double[sentences.size()][sentences.size()];
+
+        sentences.forEach(sn1 -> {
+            sentences.forEach(sn2 -> {
+                if(!sn1.equalsIgnoreCase(sn2)){}
+                    //mtx[sn1][sn2] = sentenceSimilarity(sentences[sn1], sentences[sn2], stop_words); build an a sim mtx
+
+                    }
+            );
+        });
     }
 
     public static List<WordWeight> countWeight(List<WordWeight> wordWeights, Integer maxCount) {

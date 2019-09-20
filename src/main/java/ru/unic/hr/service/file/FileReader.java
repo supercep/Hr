@@ -6,33 +6,30 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by BritikovMI on 11.09.2019.
  */
 public class FileReader {
-    private static List<String> FORMATS = Arrays.asList("pdf", "txt", "doc", "docx");
+    private static List<String> FORMATS_WHITELIST = Arrays.asList("pdf", "txt", "doc", "docx");
 
-    public static String getFile(File file) {
-        StringBuilder fileContent = new StringBuilder();
-
-        String fileExtension = getFileExtension(file);
-        if (FORMATS.stream().anyMatch(xFormat -> xFormat.equals(fileExtension))) {
-            try (Stream<String> stream = Files.lines(Paths.get(file.toString()))) {
-                stream
-                        .forEach(fileContent::append);
-
+    public static String getFileContent(File file) {
+        String fileContent = "";
+        if (file.exists() && FileReader.checkFile(file)) {
+            try {
+                fileContent = String.join(" ", Files.readAllLines(Paths.get(file.getAbsolutePath())));
             } catch (IOException e) {
-                System.out.println("Файл неверен или его нет! " +
-                        "Ошибка: " + e);
+                e.printStackTrace();
             }
-        } else {
-            System.out.println("Формат файла не поддерживается!");
         }
+        else
+            System.out.println("Формат файла не поддерживается!");
+        return fileContent;
+    }
 
-        return fileContent.toString();
-
+    private static Boolean checkFile(File file) {
+        String fileExtension = getFileExtension(file);
+        return FORMATS_WHITELIST.stream().anyMatch(fmt -> fmt.equalsIgnoreCase(fileExtension));
     }
 
     private static String getFileExtension(File file) {
